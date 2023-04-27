@@ -22,7 +22,7 @@ public class WebSocketController {
             System.out.println(file.getName());
             simpMessagingTemplate.convertAndSend("/topic/listFiles/"+msg,file.getName());
         }
-
+        System.out.println("Done Listing files");
 
     }
 

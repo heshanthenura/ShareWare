@@ -26,7 +26,7 @@
         <form th:action="@{/uploadToServer}" method="post" enctype="multipart/form-data" id="serverFileUploadForm">
             <h1 style="background-color: #0078D4;width: 100%;color: white;font-family: 'Days One'">Upload Your Files</h1>
             <label for="file">Select Files</label>
-            <input type="file" name="file" id="file" hidden>
+            <input type="file" name="file" id="file" hidden multiple>
 
             <div id="uploadedFilesToServer">
                 No file is selected

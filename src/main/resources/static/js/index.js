@@ -8,7 +8,7 @@ const uploadedFilesToServer = document.getElementById("uploadedFilesToServer");
 
 file.onchange = ()=>{
     for (let i = 0; i < file.files.length; i++) {
-        console.log(file.files[i].name);
+        console.log(file.files[i].name)
     }
     uploadedFilesToServer.innerHTML = file.files[0].name;
 }
@@ -16,7 +16,12 @@ file.onchange = ()=>{
 serverFileUploadForm.onsubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(serverFileUploadForm);
-    formData.append('file', file.files[0]);
+
+    for (let i = 0; i < file.files.length; i++) {
+        formData.append('files', file.files[i]);
+        console.log(file.files[i].name)
+    }
+
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/uploadToServer');
     xhr.onload = () => {

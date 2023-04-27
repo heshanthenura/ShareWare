@@ -24,12 +24,16 @@ public class MainController {
     }
 
     @RequestMapping(value = "/uploadToServer", method = RequestMethod.POST)
-    public ResponseEntity<?> uploadToServer(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<?> uploadToServer(@RequestParam("file") MultipartFile[] multipartFiles) throws IOException {
 
-        File file = new File(System.getProperty("user.dir")+File.separator+"UPLOADS"+File.separator+multipartFile.getOriginalFilename());
-        System.out.println(file.getAbsolutePath());
-        multipartFile.transferTo(file);
-        simpMessagingTemplate.convertAndSend("/topic/uploaded",multipartFile.getOriginalFilename());
+        for (MultipartFile multipartFile : multipartFiles) {
+            File file = new File(System.getProperty("user.dir")+File.separator+"UPLOADS"+File.separator+multipartFile.getOriginalFilename());
+            System.out.println(file.getAbsolutePath());
+            multipartFile.transferTo(file);
+            simpMessagingTemplate.convertAndSend("/topic/uploaded",multipartFile.getOriginalFilename());
+        }
+
+
         return ResponseEntity.ok().build();
     }
 

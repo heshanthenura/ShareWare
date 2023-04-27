@@ -12,14 +12,24 @@ stompClient.connect({}, function (frame) {
 
     console.log('Connected: ' + frame);
 
-    stompClient.send("/app/listFiles", {}, uniqueId)
+    const task1 = new Promise((resolve, reject) => {
+        // Perform some asynchronous operation
+        setTimeout(() => {
+            stompClient.send("/app/listFiles", {}, uniqueId)
+            resolve(); // Mark the task as completed
+        }, 0);
+    });
+    task1.then(()=>{
+        stompClient.subscribe("/topic/listFiles/" + uniqueId, (data) => {
+            console.log(data.body)
+            let p = document.createElement("p")
+            p.textContent = data.body
+            fileList.prepend(p)
+        })
+    });
 
-    stompClient.subscribe("/topic/listFiles/" + uniqueId, (data) => {
-        console.log(data.body)
-        let p = document.createElement("p")
-        p.textContent = data.body
-        fileList.prepend(p)
-    })
+
+
     stompClient.subscribe("/topic/uploaded", (data) => {
         console.log(data.body)
         let p = document.createElement("p")
