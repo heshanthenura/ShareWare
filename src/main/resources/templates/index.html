@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShareWare</title>
+    <link rel="stylesheet" th:href="@{css/index.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+<nav id="nav-bar">
+    <h1 id="heading">ShareWare</h1>
+    <button id="menuBtn">Menu</button>
+</nav>
+
+<div id="share-section">
+    <button id="uploadToServer" class="uploadBtn">Upload to Server</button>
+    <button id="shareToClient" class="uploadBtn">Send to Client</button>
+</div>
+
+<div id="serverUploadWrap" style="display: none">
+    <div id="serverUpload">
+        <div style="display: flex;justify-content: end;align-items: center;width: 100%;background-color: #0078D4;border-radius: 10px 0 0 0 ;"><button id="serverFileUploadFormCloseBtn">Close</button></div>
+        <form th:action="@{/uploadToServer}" method="post" enctype="multipart/form-data" id="serverFileUploadForm">
+            <h1 style="background-color: #0078D4;width: 100%;color: white;font-family: 'Days One'">Upload Your Files</h1>
+            <label for="file">Select Files</label>
+            <input type="file" name="file" id="file" hidden>
+
+            <div id="uploadedFilesToServer">
+                No file is selected
+            </div>
+
+            <button type="submit" id="serverFileUploadBtn">UPLOAD</button>
+        </form>
+    </div>
+</div>
+
+<div id="fileListWrap">
+    <div id="fileList">
+
+    </div>
+</div>
+
+<script th:src="@{/js/index.js}"></script>
+<script th:src="@{/js/ws.js}"></script>
+</body>
+</html>
