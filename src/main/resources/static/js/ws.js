@@ -22,9 +22,10 @@ stompClient.connect({}, function (frame) {
     task1.then(()=>{
         stompClient.subscribe("/topic/listFiles/" + uniqueId, (data) => {
             console.log(data.body)
-            let p = document.createElement("p")
-            p.textContent = data.body
-            fileList.prepend(p)
+            let div = document.createElement("div")
+            div.textContent = data.body
+            div.innerHTML = `<h1><a href="/downloadFromServer/${data.body}" target="_self">${data.body}</a></h1>`
+            fileList.prepend(div)
         })
     });
 
@@ -32,9 +33,10 @@ stompClient.connect({}, function (frame) {
 
     stompClient.subscribe("/topic/uploaded", (data) => {
         console.log(data.body)
-        let p = document.createElement("p")
-        p.textContent = data.body
-        fileList.prepend(p)
+        let div = document.createElement("div")
+        div.textContent = data.body
+        div.innerHTML = `<h1><a>${data.body}</a></h1>`
+        fileList.prepend(div)
     })
 
 });

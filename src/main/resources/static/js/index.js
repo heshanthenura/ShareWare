@@ -7,10 +7,18 @@ const file = document.getElementById("file");
 const uploadedFilesToServer = document.getElementById("uploadedFilesToServer");
 
 file.onchange = ()=>{
+    uploadedFilesToServer.innerHTML = "";
     for (let i = 0; i < file.files.length; i++) {
         console.log(file.files[i].name)
+        const element = document.createElement('div');
+        element.style = "display:flex;justify-content:space-between"
+        element.setAttribute('id', `${i}`);
+        element.innerHTML = `<h2>${file.files[i].name}</h2>`;
+        // element.onclick = () =>{removeFile(i)}
+        uploadedFilesToServer.appendChild(element);
     }
-    uploadedFilesToServer.innerHTML = file.files[0].name;
+
+    // uploadedFilesToServer.innerHTML = file.files[0].name;
 }
 
 serverFileUploadForm.onsubmit = (event) => {
@@ -44,6 +52,11 @@ uploadToServer.onclick = () =>{
 }
 
 (serverFileUploadFormCloseBtn.onclick) = () => {
+    file.value="";
+    while (uploadedFilesToServer.firstChild) {
+        uploadedFilesToServer.removeChild(uploadedFilesToServer.firstChild);
+    }
+    uploadedFilesToServer.innerHTML = "No file is selected";
     if (serverUploadWrap.style.display == "none") {
         serverUploadWrap.style.display = "flex"
     } else {
