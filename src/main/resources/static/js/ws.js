@@ -33,10 +33,10 @@ stompClient.connect({}, function (frame) {
 
     stompClient.subscribe("/topic/uploaded", (data) => {
         console.log(data.body)
-        let div = document.createElement("div")
-        div.textContent = data.body
-        div.innerHTML = `<h1><a>${data.body}</a></h1>`
-        fileList.prepend(div)
+             let div = document.createElement("div")
+            div.textContent = data.body
+            div.innerHTML = `<h1><a href="/downloadFromServer/${data.body}" target="_self">${data.body}</a></h1>`
+            fileList.prepend(div)
     })
 
 });
